@@ -3,6 +3,7 @@ package com.ayorinde.dronetechapi.dronetechapi.models;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.*;
 
@@ -10,6 +11,8 @@ import javax.persistence.*;
 @Getter
 @Setter
 @NoArgsConstructor
+@ToString
+
 @Table(name = "drones")
 public class Drone {
     // Declare drone properties
