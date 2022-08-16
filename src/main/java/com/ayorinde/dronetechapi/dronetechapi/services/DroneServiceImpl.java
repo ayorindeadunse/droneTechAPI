@@ -12,7 +12,7 @@ import com.ayorinde.dronetechapi.dronetechapi.requests.LoadDroneRequest;
 
 import java.util.List;
 
-public class DroneServiceImpl implements DroneService{
+public class DroneServiceImpl implements DroneService,MedicationService{
     @Override
     public Drone registerDrone(DroneRegistrationRequest drone) {
         return null;
@@ -61,5 +61,10 @@ public class DroneServiceImpl implements DroneService{
     @Override
     public List<EventLog> getLogHistory() {
         return null;
+    }
+
+    @Override
+    public int getMedicationWeight(String code) {
+        return 0;
     }
 }
