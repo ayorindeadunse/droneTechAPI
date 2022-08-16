@@ -3,6 +3,7 @@ package com.ayorinde.dronetechapi.dronetechapi.services;
 import com.ayorinde.dronetechapi.dronetechapi.exceptions.DroneException;
 import com.ayorinde.dronetechapi.dronetechapi.models.Drone;
 import com.ayorinde.dronetechapi.dronetechapi.models.DroneState;
+import com.ayorinde.dronetechapi.dronetechapi.models.EventLog;
 import com.ayorinde.dronetechapi.dronetechapi.models.LoadDrone;
 import com.ayorinde.dronetechapi.dronetechapi.requests.DroneRegistrationRequest;
 import com.ayorinde.dronetechapi.dronetechapi.requests.GetDroneBatteryLevelRequest;
@@ -19,4 +20,7 @@ public interface DroneService {
     List<String> getAvailableDrones(); //get the list of available drones from the event log. The serial numbers will be added to the ArrayList object.
     List<LoadDrone> loadDrone(LoadDroneRequest loadDrone) throws DroneException; //return the drone state after loading the drone with medication.
     List<String> getLoadedMedication(GetMedicationRequest getMedicationRequest); //get a list of loaded medication for a given drone
+    int recalculateBatteryLevel(int currentBatteryLevel, int medicineCount); /*assumed logic for drone battery level calculation */
+    Drone checkDroneExists(String serialNumber);
+    List<EventLog> getLogHistory();
 }
