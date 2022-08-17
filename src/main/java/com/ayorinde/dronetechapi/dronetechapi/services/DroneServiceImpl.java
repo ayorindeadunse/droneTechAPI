@@ -99,7 +99,16 @@ public class DroneServiceImpl implements DroneService,MedicationService{
     }
     @Override
     public DroneState getSelectedDroneState(String serialNumber) {
-        return null; //to provide impementation
+        DroneState droneState = DroneState.IDLE;
+        try
+        {
+            droneState = eventLogRepository.getCurrentDroneState(serialNumber);
+        }
+        catch(Exception e)
+        {
+            e.printStackTrace();
+        }
+        return droneState;
     }
 
     @Override
