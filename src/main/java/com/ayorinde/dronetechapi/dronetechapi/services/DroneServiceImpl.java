@@ -36,7 +36,20 @@ public class DroneServiceImpl implements DroneService,MedicationService{
     }
 
     @Override
-    public Drone registerDrone(DroneRegistrationRequest drone) {
+    public Drone registerDrone(DroneRegistrationRequest droneRegistrationRequest) {
+        // check if the drone exists
+        Drone drone, drone1;
+        String serialNumber = droneRegistrationRequest.setSerialNumber(); //create unique serial number for drone registration.
+        try
+        {
+            Drone d = checkDroneExists(serialNumber);
+
+        }
+        catch(Exception e)
+        {
+            e.printStackTrace();
+        }
+
         return null;
     }
 
@@ -77,7 +90,16 @@ public class DroneServiceImpl implements DroneService,MedicationService{
 
     @Override
     public Drone checkDroneExists(String serialNumber) {
-        return null;
+        Drone dd = null;
+        try
+        {
+            dd = droneRepository.checkIfDroneExists(serialNumber);
+        }
+        catch(Exception e)
+        {
+            e.printStackTrace();
+        }
+        return dd;
     }
 
     @Override
