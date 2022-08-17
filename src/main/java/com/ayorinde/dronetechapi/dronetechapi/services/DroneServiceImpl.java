@@ -113,7 +113,17 @@ public class DroneServiceImpl implements DroneService,MedicationService{
 
     @Override
     public int getBatteryLevel(String serialNumber) {
-        return 0;
+
+        int batteryLevel = 0;
+        try
+        {
+            batteryLevel = eventLogRepository.getDroneBatteryLevel(serialNumber);
+        }
+        catch(Exception e)
+        {
+            e.printStackTrace();
+        }
+        return batteryLevel;
     }
 
     @Override
