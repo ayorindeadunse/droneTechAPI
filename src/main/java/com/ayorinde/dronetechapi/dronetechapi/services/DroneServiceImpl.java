@@ -11,6 +11,7 @@ import com.ayorinde.dronetechapi.dronetechapi.util.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -128,7 +129,17 @@ public class DroneServiceImpl implements DroneService,MedicationService{
 
     @Override
     public List<Integer> getDroneBatteryLevel(GetDroneBatteryLevelRequest getDroneBatteryLevelRequest) {
-        return null;
+        List<Integer> batteryLevel = new ArrayList<>();
+        try
+        {
+            batteryLevel = eventLogRepository.getDroneBatteryLevell(getDroneBatteryLevelRequest.getSerialNumber());
+            System.out.println(batteryLevel);
+        }
+        catch(Exception e)
+        {
+            e.printStackTrace();
+        }
+        return batteryLevel;
     }
 
     @Override
