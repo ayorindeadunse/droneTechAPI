@@ -5,14 +5,36 @@ import com.ayorinde.dronetechapi.dronetechapi.models.Drone;
 import com.ayorinde.dronetechapi.dronetechapi.models.DroneState;
 import com.ayorinde.dronetechapi.dronetechapi.models.EventLog;
 import com.ayorinde.dronetechapi.dronetechapi.models.LoadDrone;
+import com.ayorinde.dronetechapi.dronetechapi.repositories.*;
 import com.ayorinde.dronetechapi.dronetechapi.requests.DroneRegistrationRequest;
 import com.ayorinde.dronetechapi.dronetechapi.requests.GetDroneBatteryLevelRequest;
 import com.ayorinde.dronetechapi.dronetechapi.requests.GetMedicationRequest;
 import com.ayorinde.dronetechapi.dronetechapi.requests.LoadDroneRequest;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class DroneServiceImpl implements DroneService,MedicationService{
+
+    private final DroneRepository droneRepository;
+    private final DroneRegisterRepository droneRegisterRepository;
+    private final EventLogRepository eventLogRepository;
+    private final MedicationRepository medicationRepository;
+    private final LoadDroneRepository loadDroneRepository;
+    private final MedicationRegisterRepository medicationRegisterRepository;
+
+    @Autowired
+    public DroneServiceImpl(DroneRepository droneRepository, DroneRegisterRepository droneRegisterRepository, EventLogRepository eventLogRepository, MedicationRepository medicationRepository, LoadDroneRepository loadDroneRepository, MedicationRegisterRepository medicationRegisterRepository) {
+        this.droneRepository = droneRepository;
+        this.droneRegisterRepository = droneRegisterRepository;
+        this.eventLogRepository = eventLogRepository;
+        this.medicationRepository = medicationRepository;
+        this.loadDroneRepository = loadDroneRepository;
+        this.medicationRegisterRepository = medicationRegisterRepository;
+    }
+
     @Override
     public Drone registerDrone(DroneRegistrationRequest drone) {
         return null;
