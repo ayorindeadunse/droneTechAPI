@@ -99,7 +99,7 @@ public class DroneServiceImpl implements DroneService,MedicationService{
     }
     @Override
     public DroneState getSelectedDroneState(String serialNumber) {
-        return null;
+        return null; //to provide impementation
     }
 
     @Override
