@@ -1,14 +1,9 @@
 package com.ayorinde.dronetechapi.dronetechapi.services;
 
 import com.ayorinde.dronetechapi.dronetechapi.exceptions.DroneException;
-import com.ayorinde.dronetechapi.dronetechapi.models.Drone;
-import com.ayorinde.dronetechapi.dronetechapi.models.DroneState;
-import com.ayorinde.dronetechapi.dronetechapi.models.EventLog;
-import com.ayorinde.dronetechapi.dronetechapi.models.LoadDrone;
-import com.ayorinde.dronetechapi.dronetechapi.requests.DroneRegistrationRequest;
-import com.ayorinde.dronetechapi.dronetechapi.requests.GetDroneBatteryLevelRequest;
-import com.ayorinde.dronetechapi.dronetechapi.requests.GetMedicationRequest;
-import com.ayorinde.dronetechapi.dronetechapi.requests.LoadDroneRequest;
+import com.ayorinde.dronetechapi.dronetechapi.exceptions.MedicationException;
+import com.ayorinde.dronetechapi.dronetechapi.models.*;
+import com.ayorinde.dronetechapi.dronetechapi.requests.*;
 
 import java.util.List;
 
@@ -22,5 +17,6 @@ public interface DroneService {
     List<String> getLoadedMedication(GetMedicationRequest getMedicationRequest); //get a list of loaded medication for a given drone
     int recalculateBatteryLevel(int currentBatteryLevel, int medicineCount); /*assumed logic for drone battery level calculation */
     Drone checkDroneExists(String serialNumber);
+    Medication registerMedication(MedicationRegistrationRequest medication) throws MedicationException; //register a medication item in inventory and return the details; /** extra method **/
     List<EventLog> getLogHistory();
 }

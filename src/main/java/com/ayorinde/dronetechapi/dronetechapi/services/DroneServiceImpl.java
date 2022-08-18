@@ -1,12 +1,10 @@
 package com.ayorinde.dronetechapi.dronetechapi.services;
 
 import com.ayorinde.dronetechapi.dronetechapi.exceptions.DroneException;
+import com.ayorinde.dronetechapi.dronetechapi.exceptions.MedicationException;
 import com.ayorinde.dronetechapi.dronetechapi.models.*;
 import com.ayorinde.dronetechapi.dronetechapi.repositories.*;
-import com.ayorinde.dronetechapi.dronetechapi.requests.DroneRegistrationRequest;
-import com.ayorinde.dronetechapi.dronetechapi.requests.GetDroneBatteryLevelRequest;
-import com.ayorinde.dronetechapi.dronetechapi.requests.GetMedicationRequest;
-import com.ayorinde.dronetechapi.dronetechapi.requests.LoadDroneRequest;
+import com.ayorinde.dronetechapi.dronetechapi.requests.*;
 import com.ayorinde.dronetechapi.dronetechapi.util.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -296,6 +294,36 @@ return loaded;
         }
         return dd;
     }
+
+    @Override
+    public Medication registerMedication(MedicationRegistrationRequest medication) throws MedicationException
+    {
+        Medication m,me = null;
+            //check if the medication already exists.
+            m = medicationRepository.checkIfMedicationExists(medication.getCode());
+            if (m != null) // medication already exists
+            {
+                throw new MedicationException("Medication with code "+medication.getCode() +" already exists");
+            }
+
+            me = new Medication();
+            me.setName(medication.getName());
+            me.setMedicineWeight(medication.getMedicineWeight());
+            me.setCode(medication.getCode());
+
+            Medication me1 = medicationRepository.save(me);
+            if(me1.getId() > 0)
+            {
+                //save in medication register
+                MedicationRegister medicationRegister = new MedicationRegister(me.getCode(),new Date(),new Date());
+                medicationRegisterRepository.save(medicationRegister);
+
+                System.out.println("Medication with code " + medication.getCode() + "has been registered");
+            }
+
+        return me;
+    }
+
 
     @Override
     public List<EventLog> getLogHistory() {

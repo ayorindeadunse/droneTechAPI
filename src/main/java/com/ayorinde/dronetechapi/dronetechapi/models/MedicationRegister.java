@@ -25,5 +25,11 @@ public class MedicationRegister {
     private Date createdDate;
     @Column(name = "modifiedDate")
     private Date modifiedDate;
+
+    public MedicationRegister(String medicationCode, Date createdDate, Date modifiedDate) {
+        this.medicationCode = medicationCode;
+        this.createdDate = createdDate;
+        this.modifiedDate = modifiedDate;
+    }
 }
 

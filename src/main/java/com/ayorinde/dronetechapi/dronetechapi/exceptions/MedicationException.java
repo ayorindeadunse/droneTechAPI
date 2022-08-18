@@ -1,7 +1,7 @@
 package com.ayorinde.dronetechapi.dronetechapi.exceptions;
 
-public class DroneException extends Exception{
-    public DroneException(String message) {
+public class MedicationException extends Exception {
+    public MedicationException(String message) {
         super(String.format(message));
     }
 }
