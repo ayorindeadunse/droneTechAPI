@@ -84,7 +84,7 @@ public class DroneController {
     }
 
     //get log history
-    @GetMapping("/api/droneTech/getEventLog")
+    @GetMapping("/api/droneTech/geteventLog")
     public ResponseEntity getLogs()
     {
         List<EventLog> ev = droneService.getLogHistory();
