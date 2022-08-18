@@ -16,12 +16,12 @@ import java.util.List;
 @Service
 public class DroneServiceImpl implements DroneService,MedicationService{
 
-    private final DroneRepository droneRepository;
-    private final DroneRegisterRepository droneRegisterRepository;
-    private final EventLogRepository eventLogRepository;
-    private final MedicationRepository medicationRepository;
-    private final LoadDroneRepository loadDroneRepository;
-    private final MedicationRegisterRepository medicationRegisterRepository;
+    private  DroneRepository droneRepository;
+    private  DroneRegisterRepository droneRegisterRepository;
+    private  EventLogRepository eventLogRepository;
+    private  MedicationRepository medicationRepository;
+    private  LoadDroneRepository loadDroneRepository;
+    private  MedicationRegisterRepository medicationRegisterRepository;
 
     @Autowired
     public DroneServiceImpl(DroneRepository droneRepository, DroneRegisterRepository droneRegisterRepository, EventLogRepository eventLogRepository, MedicationRepository medicationRepository, LoadDroneRepository loadDroneRepository, MedicationRegisterRepository medicationRegisterRepository) {

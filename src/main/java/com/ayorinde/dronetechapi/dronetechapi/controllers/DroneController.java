@@ -7,6 +7,7 @@ import com.ayorinde.dronetechapi.dronetechapi.requests.*;
 import com.ayorinde.dronetechapi.dronetechapi.responses.ApiResponse;
 import com.ayorinde.dronetechapi.dronetechapi.services.DroneServiceImpl;
 import com.ayorinde.dronetechapi.dronetechapi.util.Constants;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,13 +19,14 @@ import java.util.List;
 
 @RestController
 public class DroneController {
-    private final DroneServiceImpl droneService;
+    private DroneServiceImpl droneService;
 
+    @Autowired
     public DroneController(DroneServiceImpl droneService) {
         this.droneService = droneService;
     }
 
-    @PostMapping("/api/droneTech/registerdrone")
+    @PostMapping("/api/dronetech/registerdrone")
     public ResponseEntity Register(@RequestBody DroneRegistrationRequest droneRegistrationRequest) {
         //Check drone weight
         if (droneRegistrationRequest.getDroneWeight() > Constants.DRONE_WEIGHT) {
@@ -33,7 +35,7 @@ public class DroneController {
         Drone drone = droneService.registerDrone(droneRegistrationRequest);
         return ResponseEntity.ok(new ApiResponse(true, "Drone registered successfully!", drone));
     }
-    @PostMapping("/api/droneTech/loaddrone")
+    @PostMapping("/api/dronetech/loaddrone")
     public ResponseEntity LoadDrone(@RequestBody LoadDroneRequest loadDroneRequest) throws DroneException {
         List<LoadDrone> l;
         l = droneService.loadDrone(loadDroneRequest);
@@ -48,7 +50,7 @@ public class DroneController {
 
     }
 
-    @PostMapping("/api/droneTech/registermedication")
+    @PostMapping("/api/dronetech/registermedication")
     public ResponseEntity registerMedication(@RequestBody MedicationRegistrationRequest medication) throws MedicationException {
         Medication m = droneService.registerMedication(medication);
         if(m != null) {
@@ -57,7 +59,7 @@ public class DroneController {
         return ResponseEntity.ok(new ApiResponse(false, "An error occurred", m));
     }
 
-    @PostMapping("/api/droneTech/getloadedmedication")
+    @PostMapping("/api/dronetech/getloadedmedication")
     public ResponseEntity getLoadedMedication(@RequestBody GetMedicationRequest getMedicationRequest) {
         List<String> getMeds = droneService.getLoadedMedication(getMedicationRequest);
         if (getMeds.size() != 0) {
@@ -65,7 +67,7 @@ public class DroneController {
         }
         return ResponseEntity.ok(new ApiResponse(false, "No data retrieved", getMeds));
     }
-    @GetMapping("/api/droneTech/getavailabledrones")
+    @GetMapping("/api/dronetech/getavailabledrones")
     public ResponseEntity getAvailableDrones() {
         List<String> getDrones = droneService.getAvailableDrones();
         if (getDrones.size() != 0) {
@@ -74,7 +76,7 @@ public class DroneController {
         return ResponseEntity.ok(new ApiResponse(false, "No data retrieved", getDrones));
     }
 
-    @PostMapping("/api/droneTech/getdronebatterylevel")
+    @PostMapping("/api/dronetech/getdronebatterylevel")
     public ResponseEntity getDroneBatteryLevel(@RequestBody GetDroneBatteryLevelRequest getDroneBatteryLevelRequest) {
         List<Integer> droneBatteryLevelResponse = droneService.getDroneBatteryLevel(getDroneBatteryLevelRequest);
         if (droneBatteryLevelResponse.size() != 0) {
@@ -84,7 +86,7 @@ public class DroneController {
     }
 
     //get log history
-    @GetMapping("/api/droneTech/geteventLog")
+    @GetMapping("/api/dronetech/geteventlog")
     public ResponseEntity getLogs()
     {
         List<EventLog> ev = droneService.getLogHistory();
