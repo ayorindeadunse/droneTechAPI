@@ -1,16 +1,15 @@
 package com.ayorinde.dronetechapi.dronetechapi.controllers;
 
 import com.ayorinde.dronetechapi.dronetechapi.exceptions.DroneException;
-import com.ayorinde.dronetechapi.dronetechapi.models.Drone;
-import com.ayorinde.dronetechapi.dronetechapi.models.DroneState;
-import com.ayorinde.dronetechapi.dronetechapi.models.LoadDrone;
-import com.ayorinde.dronetechapi.dronetechapi.requests.DroneRegistrationRequest;
-import com.ayorinde.dronetechapi.dronetechapi.requests.LoadDroneRequest;
+import com.ayorinde.dronetechapi.dronetechapi.exceptions.MedicationException;
+import com.ayorinde.dronetechapi.dronetechapi.models.*;
+import com.ayorinde.dronetechapi.dronetechapi.requests.*;
 import com.ayorinde.dronetechapi.dronetechapi.responses.ApiResponse;
 import com.ayorinde.dronetechapi.dronetechapi.services.DroneServiceImpl;
 import com.ayorinde.dronetechapi.dronetechapi.util.Constants;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -49,5 +48,47 @@ public class DroneController {
 
     }
 
+    @PostMapping("/api/droneTech/registermedication")
+    public ResponseEntity registerMedication(@RequestBody MedicationRegistrationRequest medication) throws MedicationException {
+        Medication m = droneService.registerMedication(medication);
+        if(m != null) {
+            return ResponseEntity.ok(new ApiResponse(true, "Medicine Successfully registered.", m));
+        }
+        return ResponseEntity.ok(new ApiResponse(false, "An error occurred", m));
+    }
 
+    @PostMapping("/api/droneTech/getloadedmedication")
+    public ResponseEntity getLoadedMedication(@RequestBody GetMedicationRequest getMedicationRequest) {
+        List<String> getMeds = droneService.getLoadedMedication(getMedicationRequest);
+        if (getMeds.size() != 0) {
+            return ResponseEntity.ok(new ApiResponse(true, "Medication Successfully  loaded", getMeds));
+        }
+        return ResponseEntity.ok(new ApiResponse(false, "No data retrieved", getMeds));
+    }
+    @GetMapping("/api/droneTech/getavailabledrones")
+    public ResponseEntity getAvailableDrones() {
+        List<String> getDrones = droneService.getAvailableDrones();
+        if (getDrones.size() != 0) {
+            return ResponseEntity.ok(new ApiResponse(true, "Available Drones Successfully retrieved", getDrones));
+        }
+        return ResponseEntity.ok(new ApiResponse(false, "No data retrieved", getDrones));
+    }
+
+    @PostMapping("/api/droneTech/getdronebatterylevel")
+    public ResponseEntity getDroneBatteryLevel(@RequestBody GetDroneBatteryLevelRequest getDroneBatteryLevelRequest) {
+        List<Integer> droneBatteryLevelResponse = droneService.getDroneBatteryLevel(getDroneBatteryLevelRequest);
+        if (droneBatteryLevelResponse.size() != 0) {
+            return ResponseEntity.ok(new ApiResponse(true, "Current Drone Battery Level Returned", droneBatteryLevelResponse));
+        }
+        return ResponseEntity.ok(new ApiResponse(false, "No data retrieved", droneBatteryLevelResponse));
+    }
+
+    //get log history
+    @GetMapping("/api/droneTech/getEventLog")
+    public ResponseEntity getLogs()
+    {
+        List<EventLog> ev = droneService.getLogHistory();
+
+            return ResponseEntity.ok(ev);
+    }
 }
