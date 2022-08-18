@@ -2,13 +2,10 @@ package com.ayorinde.dronetechapi.dronetechapi.requests;
 
 import com.ayorinde.dronetechapi.dronetechapi.models.DroneModel;
 
-import javax.validation.constraints.NotBlank;
 import java.util.UUID;
 
 public class DroneRegistrationRequest {
-    @NotBlank
     private int droneWeight;
-    @NotBlank
     private DroneModel droneModel;
     public String createSerialNumber()
     {

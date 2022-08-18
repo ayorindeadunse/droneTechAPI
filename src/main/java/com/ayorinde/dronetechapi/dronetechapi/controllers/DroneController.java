@@ -51,7 +51,8 @@ public class DroneController {
         if(m != null) {
             return ResponseEntity.ok(new ApiResponse(true, "Medicine Successfully registered.", m));
         }
-        return ResponseEntity.ok(new ApiResponse(false, "An error occurred", m));
+       // return ResponseEntity.ok(new ApiResponse(false, "An error occurred", m));
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ApiResponse(false, "An Error occurred on the server", m));
     }
 
     @PostMapping("/api/dronetech/getloadedmedication")
@@ -60,7 +61,8 @@ public class DroneController {
         if (getMeds.size() != 0) {
             return ResponseEntity.ok(new ApiResponse(true, "Medication Successfully  loaded", getMeds));
         }
-        return ResponseEntity.ok(new ApiResponse(false, "No data retrieved", getMeds));
+      //  return ResponseEntity.ok(new ApiResponse(false, "No data retrieved", getMeds));
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ApiResponse(false, "No data retrieved", getMeds));
     }
     @GetMapping("/api/dronetech/getavailabledrones")
     public ResponseEntity getAvailableDrones() {
@@ -68,7 +70,8 @@ public class DroneController {
         if (getDrones.size() != 0) {
             return ResponseEntity.ok(new ApiResponse(true, "Available Drones Successfully retrieved", getDrones));
         }
-        return ResponseEntity.ok(new ApiResponse(false, "No data retrieved", getDrones));
+       // return ResponseEntity.ok(new ApiResponse(false, "No data retrieved", getDrones));
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ApiResponse(false, "No data retrieved", getDrones));
     }
 
     @PostMapping("/api/dronetech/getdronebatterylevel")
@@ -77,7 +80,8 @@ public class DroneController {
         if (droneBatteryLevelResponse.size() != 0) {
             return ResponseEntity.ok(new ApiResponse(true, "Current Drone Battery Level Returned", droneBatteryLevelResponse));
         }
-        return ResponseEntity.ok(new ApiResponse(false, "No data retrieved", droneBatteryLevelResponse));
+        //return ResponseEntity.ok(new ApiResponse(false, "No data retrieved", droneBatteryLevelResponse));
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ApiResponse(false, "No data retrieved", droneBatteryLevelResponse));
     }
 
     //get log history
