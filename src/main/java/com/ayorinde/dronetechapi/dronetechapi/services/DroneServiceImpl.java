@@ -167,26 +167,18 @@ public class DroneServiceImpl implements DroneService,MedicationService{
                 totalMedicationWeight += medicationWeight;
                 if(batteryLevel < 25)
                 {
-                    LoadDrone l = new LoadDrone();
+                  /*  LoadDrone l = new LoadDrone();
                     l.setSerialNumber(loadDroneRequest.getSerialNumber());
                     l.setMedicineCode(loadDroneRequest.getMedicineCode().get(i));
                     l.setDroneState(DroneState.IDLE);
                     l.setDateCreated(new Date());
                     l.setDateModified(new Date());
 
-                    loaded.add(l);
+                    loaded.add(l);*/
                     throw new DroneException("Drone battery level is too low for this operation");
                 }
                 else if(totalMedicationWeight > droneWeight)
                 {
-                    LoadDrone l1 = new LoadDrone();
-                    l1.setSerialNumber(loadDroneRequest.getSerialNumber());
-                    l1.setMedicineCode(loadDroneRequest.getMedicineCode().get(i));
-                    l1.setDroneState(DroneState.OVERLOADED);
-                    l1.setDateCreated(new Date());
-                    l1.setDateModified(new Date());
-
-                    loaded.add(l1);
                     throw new DroneException("Drone cannot be loaded because the content is too heavy.");
                 }
                 else {
