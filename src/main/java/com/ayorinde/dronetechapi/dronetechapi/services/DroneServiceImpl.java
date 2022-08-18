@@ -151,7 +151,7 @@ public class DroneServiceImpl implements DroneService,MedicationService{
         return availableDrones;
     }
     @Override
-    public List<LoadDrone> loadDrone(LoadDroneRequest loadDroneRequest) throws DroneException {
+    public List<LoadDrone> loadDrone(LoadDroneRequest loadDroneRequest) throws DroneException{
         List<LoadDrone> loaded = new ArrayList<>();
         int droneWeight,totalMedicationWeight = 0;
         LoadDrone loadDrone,loadDrone1,loadDrone2,loadDrone3 = null;
@@ -175,11 +175,18 @@ public class DroneServiceImpl implements DroneService,MedicationService{
                     l.setDateModified(new Date());
 
                     loaded.add(l);
-
-                    throw new DroneException("Drone battery level is  too low for this operation.");
+                    throw new DroneException("Drone battery level is too low for this operation");
                 }
                 else if(totalMedicationWeight > droneWeight)
                 {
+                    LoadDrone l1 = new LoadDrone();
+                    l1.setSerialNumber(loadDroneRequest.getSerialNumber());
+                    l1.setMedicineCode(loadDroneRequest.getMedicineCode().get(i));
+                    l1.setDroneState(DroneState.OVERLOADED);
+                    l1.setDateCreated(new Date());
+                    l1.setDateModified(new Date());
+
+                    loaded.add(l1);
                     throw new DroneException("Drone cannot be loaded because the content is too heavy.");
                 }
                 else {
@@ -252,13 +259,16 @@ public class DroneServiceImpl implements DroneService,MedicationService{
                         new Date(),new Date());
                 eventLogRepository.save(eIdle);
             }
+          //  return "Drone with Serial Number: "+loadDroneRequest.getSerialNumber() +" successfully was successfully loaded. Delivery of medication successfully completed.";
         }
         else
         {
-            System.out.println("Drone with Serial Number: "+loadDroneRequest.getSerialNumber() + "is currently engaged. Please try " +
+           System.out.println("Drone with Serial Number: "+loadDroneRequest.getSerialNumber() + "is currently engaged. Please try " +
                     "again later.");
+          //  return "Drone with Serial Number: "+loadDroneRequest.getSerialNumber() + "is currently engaged. Please try " +
+                  //  "again later.";
         }
-return loaded;
+        return loaded;
     }
 
     @Override

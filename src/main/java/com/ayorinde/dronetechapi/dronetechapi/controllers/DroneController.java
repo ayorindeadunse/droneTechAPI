@@ -42,9 +42,12 @@ public class DroneController {
         for (int i = 0; i < l.size(); i++) {
             if (l.get(i).getDroneState() == DroneState.IDLE) {
                 return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ApiResponse(false, "Battery Level is too low for this operation", l));
+            } else if (l.get(i).getDroneState() == DroneState.OVERLOADED) {
+                return ResponseEntity.ok(new ApiResponse(false, "Drone cannot be loaded because content is too heavy.", l));
             }
-            return ResponseEntity.ok(new ApiResponse(true, "Drone Loaded Successfully!", l));
+            return ResponseEntity.ok(new ApiResponse(true, "Drone loaded successfully!.", l));
         }
+        // check drone state other than idle
 
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ApiResponse(false, "An Error occurred on the server", l));
 
