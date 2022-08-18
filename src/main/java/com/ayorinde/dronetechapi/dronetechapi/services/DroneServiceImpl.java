@@ -326,12 +326,33 @@ return loaded;
 
 
     @Override
-    public List<EventLog> getLogHistory() {
-        return null;
+    public List<EventLog> getLogHistory()
+    {
+        List<EventLog> total = null;
+        try
+        {
+            total = eventLogRepository.findAll();
+        }
+        catch(Exception e)
+        {
+            e.printStackTrace();
+        }
+        return total;
     }
 
     @Override
-    public int getMedicationWeight(String code) {
-        return 0;
+    public int getMedicationWeight(String code)
+    {
+        int weight = 0;
+        try
+        {
+            weight = medicationRepository.medicationWeight(code);
+            System.out.println("The medication for" + code + " is:" + weight + "g");
+        }
+        catch(Exception e)
+        {
+            e.printStackTrace();
+        }
+        return weight;
     }
 }
