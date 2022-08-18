@@ -30,5 +30,14 @@ public class EventLog {
     private Date dateCreated;
     @Column(name = "dateModified")
     private Date dateModified;
+
+
+    public EventLog(String serialNumber, DroneState droneState, int batteryLevel, Date dateCreated,Date dateModified) {
+        this.serialNumber = serialNumber;
+        this.droneState = droneState;
+        this.batteryLevel = batteryLevel;
+        this.dateCreated = dateCreated;
+        this.dateModified = dateModified;
+    }
 }
 

@@ -4,9 +4,11 @@ import com.ayorinde.dronetechapi.dronetechapi.models.DroneState;
 import com.ayorinde.dronetechapi.dronetechapi.models.EventLog;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+@Repository
 public interface EventLogRepository extends JpaRepository<EventLog,Long> {
 
     @Query(value = "SELECT SERIAL_NUMBER FROM EVENTLOG WHERE DRONE_STATE = 0 ORDER BY DATE_CREATED DESC LIMIT 1", nativeQuery=true)
