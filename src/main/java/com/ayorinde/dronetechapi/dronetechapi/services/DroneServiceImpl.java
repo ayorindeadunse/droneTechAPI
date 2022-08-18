@@ -265,7 +265,16 @@ return loaded;
 
     @Override
     public List<String> getLoadedMedication(GetMedicationRequest getMedicationRequest) {
-        return null;
+        List<String> loadedMedication = new ArrayList<>();
+        try
+        {
+            loadedMedication = loadDroneRepository.getDroneAvailableMedication(getMedicationRequest.getSerialNumber());
+        }
+        catch(Exception e)
+        {
+            e.printStackTrace();
+        }
+        return loadedMedication;
     }
 
     @Override
