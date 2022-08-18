@@ -39,15 +39,10 @@ public class DroneController {
     public ResponseEntity LoadDrone(@RequestBody LoadDroneRequest loadDroneRequest) throws DroneException {
         List<LoadDrone> l;
         l = droneService.loadDrone(loadDroneRequest);
-        for (int i = 0; i < l.size(); i++) {
-            if (l.get(i).getDroneState() == DroneState.IDLE) {
-                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ApiResponse(false, "Battery Level is too low for this operation or drone is too heavy.", l));
-            }
+        if(l.size() != 0)
             return ResponseEntity.ok(new ApiResponse(true, "Drone Loaded Successfully!", l));
-        }
 
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ApiResponse(false, "An Error occurred on the server", l));
-
     }
 
     @PostMapping("/api/dronetech/registermedication")
