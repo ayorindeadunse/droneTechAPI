@@ -310,6 +310,7 @@ return loaded;
             me.setName(medication.getName());
             me.setMedicineWeight(medication.getMedicineWeight());
             me.setCode(medication.getCode());
+            me.setMedicationImageUrl(medication.getMedicationImage());
 
             Medication me1 = medicationRepository.save(me);
             if(me1.getId() > 0)
