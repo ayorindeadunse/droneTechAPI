@@ -6,7 +6,7 @@ import javax.validation.constraints.Digits;
 import java.util.UUID;
 
 public class DroneRegistrationRequest {
-    @Digits(message="Number should contain 10 digits.", fraction = 0, integer = 10)
+    @Digits(message="Number should contain 3 digits.", fraction = 0, integer = 10)
     private int droneWeight;
     private DroneModel droneModel;
     public String createSerialNumber()
